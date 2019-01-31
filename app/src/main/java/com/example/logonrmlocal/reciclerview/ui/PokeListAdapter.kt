@@ -12,7 +12,9 @@ import kotlinx.android.synthetic.main.pokemon_row.view.*
 
 class PokeListAdapter(
         private val context: Context,
-        private val pokemons: List<Pokemon>
+        private val pokemons: List<Pokemon>,
+        private val listener: (Pokemon) -> Unit
+
 ): RecyclerView.Adapter<PokeListAdapter.PokemonViewHolder> (){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
@@ -28,19 +30,24 @@ class PokeListAdapter(
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
         val pokemon = pokemons[position]
-        holder.bindView(pokemon)
+        holder.bindView(pokemon, listener)
     }
 
     class PokemonViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
-        fun bindView(pokemon: Pokemon) = with(itemView){
+        fun bindView(pokemon: Pokemon,
+                     listener: (Pokemon) -> Unit) = with(itemView){
 
             PokeName.text = pokemon.pokeName
 
             getPicassoAuth(itemView.context)
                     .load("https://pokedexdx.herokuapp.com${pokemon.pokeImage}")
                     .into(PokePic)
-        }
 
+            setOnClickListener {listener(pokemon)}
+
+        }
     }
+
+
 }

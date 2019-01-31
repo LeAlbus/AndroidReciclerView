@@ -35,7 +35,8 @@ fun getPicassoAuth(context: Context): Picasso{
     if(picasso == null){
         picasso = Picasso
                 .Builder(context)
-                .downloader(OkHttp3Downloader(getOkhttpClientAuth().build())
+                .downloader(OkHttp3Downloader(getOkhttpClientAuth().build()))
+                .build()
     }
 
     return picasso!!

@@ -27,7 +27,9 @@ class PokeListActivity : AppCompatActivity() {
     }
 
     private fun showList(pokemons: List<Pokemon>){
-        rvPokedex.adapter = PokeListAdapter(this, pokemons)
+        rvPokedex.adapter = PokeListAdapter(this, pokemons, {
+            Toast.makeText(this, it.pokeName, Toast.LENGTH_LONG).show()
+        })
         rvPokedex.layoutManager = LinearLayoutManager(this)
     }
 
@@ -62,6 +64,6 @@ class PokeListActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        disposable.dispose()
+        disposable?.dispose()
     }
 }
