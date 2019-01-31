@@ -63,3 +63,7 @@ class AuthInterceptor: Interceptor{
     }
 
 }
+
+fun getPokemonAPI(): PokemonAPI{
+    return ClientApi<PokemonAPI>().getClient(PokemonAPI::class.java)
+}
